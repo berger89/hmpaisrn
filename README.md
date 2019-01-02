@@ -4,6 +4,8 @@ A new Flutter application. How Many People Are In Space Right Now?
 
 http://www.howmanypeopleareinspacerightnow.com/peopleinspace.json
 
+<img src="https://i.imgur.com/mXngDUd.jpg" data-canonical-src="https://i.imgur.com/mXngDUd.jpg"  height="300" />
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
