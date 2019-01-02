@@ -6,7 +6,9 @@ A new Flutter application. How Many People Are In Space Right Now?
 
 http://www.howmanypeopleareinspacerightnow.com/peopleinspace.json
 
-<img src="https://i.imgur.com/0KN6ptz.jpg" height="300" />
+<img align="left" src="https://i.imgur.com/0KN6ptz.jpg" hspace="20" height="250px"/>
+<img align="left" src="https://i.imgur.com/FmFdQG9.jpg" hspace="20" height="250px"/>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
 ## Getting Started
 
