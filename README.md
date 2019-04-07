@@ -10,6 +10,16 @@ http://www.howmanypeopleareinspacerightnow.com/peopleinspace.json
 <img align="left" src="https://i.imgur.com/FmFdQG9.jpg" hspace="20" height="250px"/>
 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
+## App Structure
+lib/<br/>
+|- main.dart<br/>
+|- routes.dart<br/>
+|- screens/<br/>
+|- util/<br/>
+|- widgets/<br/>
+|- data/<br/>
+|- services/<br/>
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
