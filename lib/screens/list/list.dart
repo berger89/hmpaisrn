@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hmpaisrn/data/people.dart';
 import 'package:hmpaisrn/screens/detail/detail.dart';
-import 'package:path/path.dart';
 
 class ListScreen extends StatelessWidget {
   final List<People> people;
