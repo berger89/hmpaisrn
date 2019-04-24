@@ -3,6 +3,7 @@ import 'package:hmpaisrn/data/people.dart';
 import 'package:hmpaisrn/screens/detail/planet_summary.dart';
 import 'package:hmpaisrn/util/text_style.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class DetailPage extends StatelessWidget {
   final People people;
@@ -31,11 +32,7 @@ class DetailPage extends StatelessWidget {
 
   Container _getBackground() {
     return new Container(
-      child: new Image.network(
-        people.biophoto,
-        fit: BoxFit.cover,
-        height: 300.0,
-      ),
+      child: new Image(image: new CachedNetworkImageProvider(people.biophoto), height: 300.0, fit: BoxFit.contain),
       constraints: new BoxConstraints.expand(height: 300.0),
     );
   }

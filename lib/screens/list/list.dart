@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hmpaisrn/data/people.dart';
 import 'package:hmpaisrn/screens/detail/detail.dart';
@@ -37,21 +38,25 @@ class PeopleList extends StatelessWidget {
 class _PeopleListItem extends ListTile {
   _PeopleListItem(People people, buildContext)
       : super(
-    onTap: () => onTapped(people, buildContext),
-    title: Text(people.name),
-    subtitle: Text(people.title),
-    leading: new Container(
-        width: 45.0,
-        height: 45.0,
-        decoration: new BoxDecoration(
-            shape: BoxShape.circle,
-            image: new DecorationImage(
-                fit: BoxFit.fitWidth,
-                image: new NetworkImage(people.biophoto)))),
-  );
+            onTap: () => onTapped(people, buildContext),
+            title: Text(people.name),
+            subtitle: Text(people.title),
+            leading: new Container(
+              width: 45.0,
+              height: 45.0,
+              child: ClipOval(
+                child: CachedNetworkImage(
+                  imageUrl: people.biophoto,
+                  width: 45.0,
+                  height: 45.0,
+                ),
+              ),
+            ));
 }
 
 void onTapped(People people, BuildContext context) {
   Navigator.push(
-      context, new MaterialPageRoute(builder: (context) => new DetailPage(people: people)));
+      context,
+      new MaterialPageRoute(
+          builder: (context) => new DetailPage(people: people)));
 }

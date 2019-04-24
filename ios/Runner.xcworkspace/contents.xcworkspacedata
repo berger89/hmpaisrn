@@ -1,7 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workspace
    version = "1.0">
+   <Group
+      location = "group:"
+      name = "Flutter">
+      <FileRef
+         location = "group:Flutter/App.framework">
+      </FileRef>
+      <FileRef
+         location = "group:Flutter/AppFrameworkInfo.plist">
+      </FileRef>
+      <FileRef
+         location = "group:Flutter/Flutter.framework">
+      </FileRef>
+      <FileRef
+         location = "group:Flutter/Debug.xcconfig">
+      </FileRef>
+      <FileRef
+         location = "group:Flutter/Release.xcconfig">
+      </FileRef>
+      <FileRef
+         location = "group:Flutter/Generated.xcconfig">
+      </FileRef>
+   </Group>
    <FileRef
       location = "group:Runner.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Pods/Pods.xcodeproj">
    </FileRef>
 </Workspace>
