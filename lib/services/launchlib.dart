@@ -25,6 +25,20 @@ fetchNextLaunches({next = 20, offset = 0}) {
   });
 }
 
+fetchSearchLaunches({name = '', limit = 200}) {
+  final queryParameters = {
+    'limit': limit.toString(),
+    'name': name.toString(),
+    'mode': 'verbose',
+    'sort': 'desc'
+  };
+
+  final uri =
+      Uri.https('launchlibrary.net', '/1.4/launch', queryParameters);
+
+  return handleGetCall(uri);
+}
+
 fetchPreviousLaunches({startdate, enddate, limit = 500}) {
   if (startdate == null) {
     startdate = DateTime.now().subtract(Duration(days: 90));
