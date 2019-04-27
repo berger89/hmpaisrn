@@ -39,20 +39,23 @@ class PeopleList extends StatelessWidget {
 class _PeopleListItem extends ListTile {
   _PeopleListItem(People people, buildContext)
       : super(
-            onTap: () => onTapped(people, buildContext),
-            title: Text(people.name),
-            subtitle: Text(people.title),
-            leading: new Container(
-              width: 45.0,
-              height: 45.0,
-              child: ClipOval(
-                child: CachedNetworkImage(
-                  imageUrl: people.biophoto,
-                  width: 45.0,
-                  height: 45.0,
-                ),
+          onTap: () => onTapped(people, buildContext),
+          title: Text(people.name),
+          subtitle: Text(people.title),
+          leading: new Container(
+            width: 50.0,
+            height: 50.0,
+            child: ClipOval(
+              child: CachedNetworkImage(
+                fit: BoxFit.cover,
+                imageUrl: people.biophoto,
+                width: 50.0,
+                height: 50.0,
               ),
-            ));
+            ),
+          ),
+          trailing: Icon(Icons.keyboard_arrow_right),
+        );
 }
 
 void onTapped(People people, BuildContext context) {

@@ -137,7 +137,7 @@ class _PeopleNumberPageState extends State<PeopleNumberPage> {
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-              icon: Icon(Icons.people_outline), title: Text('Home')),
+              icon: Icon(Icons.people_outline), title: Text('People')),
           BottomNavigationBarItem(
               icon: Icon(Rocket.rocket), title: Text('Upcoming')),
           BottomNavigationBarItem(
