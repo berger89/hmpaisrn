@@ -1,4 +1,6 @@
+import 'package:async/async.dart';
 import 'package:flutter/material.dart';
+import 'package:hmpaisrn/data/launch.dart';
 import 'package:hmpaisrn/rocket_icons.dart';
 import 'package:hmpaisrn/screens/list/list.dart';
 import 'package:hmpaisrn/screens/rocket/upcoming/upcoming.dart';
@@ -80,31 +82,43 @@ class _PeopleNumberPageState extends State<PeopleNumberPage> {
       ),
       FutureBuilder(
           future: fetchLaunch(),
-          initialData: [],
           builder: (context, snapshot) {
-            if (snapshot.data != null) {
+            if (snapshot.hasData && snapshot.data is Launch) {
               return new UpcomingListScreen(
                 launch: snapshot.data,
+              );
+            } else {
+              // TODO show loading dialog
+              return new UpcomingListScreen(
+                launch: new Launch(count: 0,launches: new List(0)),
               );
             }
           }),
       FutureBuilder(
           future: fetchLaunch(),
-          initialData: [],
           builder: (context, snapshot) {
-            if (snapshot.data != null) {
+            if (snapshot.hasData && snapshot.data is Launch) {
               return new UpcomingListScreen(
                 launch: snapshot.data,
+              );
+            } else {
+              // TODO show loading dialog
+              return new UpcomingListScreen(
+                launch: new Launch(count: 0,launches: new List(0)),
               );
             }
           }),
       FutureBuilder(
           future: fetchLaunch(),
-          initialData: [],
           builder: (context, snapshot) {
-            if (snapshot.data != null) {
+            if (snapshot.hasData && snapshot.data is Launch) {
               return new UpcomingListScreen(
                 launch: snapshot.data,
+              );
+            } else {
+              // TODO show loading dialog
+              return new UpcomingListScreen(
+                launch: new Launch(count: 0,launches: new List(0)),
               );
             }
           }),

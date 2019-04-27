@@ -2,8 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hmpaisrn/data/launch.dart';
 import 'package:hmpaisrn/data/launches.dart';
-import 'package:hmpaisrn/data/people.dart';
-import 'package:hmpaisrn/screens/detail/detail.dart';
 
 class UpcomingListScreen extends StatelessWidget {
   final Launch launch;
