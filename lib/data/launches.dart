@@ -45,7 +45,7 @@ class Launches {
     vidURLs = List.castFrom(json['vidURLs']);
     probability = json['probability'];
     changed = json['changed'];
-    lsp = json['lsp'];
+    lsp = Map.castFrom(json['lsp']);
     rocket = Rocket.fromJson(json['rocket']);
   }
 
