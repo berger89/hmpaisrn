@@ -69,3 +69,11 @@ build/
 !**/ios/**/default.pbxuser
 !**/ios/**/default.perspectivev3
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
+
+android/app/new_keystore
+
+android/app/release/app-release\.apk
+
+android/app/release/output\.json
+
+android/key\.properties
