@@ -1,3 +1,5 @@
+import 'package:hmpaisrn/data/rockets.dart';
+
 class Launches {
   String name;
   int id;
@@ -11,7 +13,8 @@ class Launches {
   String vidURL;
   int probability;
   String changed;
-  String lsp;
+  Map<String, dynamic> lsp;
+  Rocket rocket;
 
   Launches(
       {this.id,
@@ -26,7 +29,8 @@ class Launches {
       this.vidURL,
       this.probability,
       this.changed,
-      this.lsp});
+      this.lsp,
+      this.rocket});
 
   Launches.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -38,9 +42,11 @@ class Launches {
     windowstart = json['windowstart'];
     windowend = json['windowend'];
     vidURL = json['vidURL'];
+    vidURLs = List.castFrom(json['vidURLs']);
     probability = json['probability'];
     changed = json['changed'];
     lsp = json['lsp'];
+    rocket = Rocket.fromJson(json['rocket']);
   }
 
   Map<String, dynamic> toJson() {
@@ -58,6 +64,7 @@ class Launches {
     data['probability'] = this.probability;
     data['changed'] = this.changed;
     data['lsp'] = this.lsp;
+    data['rocket'] = this.rocket;
     return data;
   }
 }
