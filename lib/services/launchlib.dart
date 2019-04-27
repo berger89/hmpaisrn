@@ -1,11 +1,14 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:intl/intl.dart';
 import 'package:async/async.dart';
 import 'package:hmpaisrn/data/launch.dart';
 import 'package:http/http.dart' as http;
 
 final AsyncMemoizer _memoizer = AsyncMemoizer();
+
+final formatter = new DateFormat('yyyy-MM-dd');
 
 fetchNextLaunches({next = 20, offset = 0}) {
   return _memoizer.runOnce(() async {
@@ -23,26 +26,26 @@ fetchNextLaunches({next = 20, offset = 0}) {
 }
 
 fetchPreviousLaunches({startdate, enddate, limit = 500}) {
-  return _memoizer.runOnce(() async {
-    if (startdate == null) {
-      startdate = DateTime.now().subtract(Duration(days: 14)).toUtc();
-    }
+  if (startdate == null) {
+    startdate = DateTime.now().subtract(Duration(days: 90));
+  }
 
-    if (enddate == null) {
-      enddate = DateTime.now().toUtc();
-    }
+  if (enddate == null) {
+    enddate = DateTime.now();
+  }
 
-    final queryParameters = {
-      'limit': 500,
-      'startdate': startdate,
-      'enddate': enddate
-    };
+  final queryParameters = {
+    'limit': '500',
+    'startdate': formatter.format(startdate),
+    'enddate': formatter.format(enddate),
+    'mode': 'verbose',
+    'sort': 'desc'
+  };
 
-    final uri =
-        Uri.https('launchlibrary.net', '/1.4/launch', queryParameters);
+  final uri =
+      Uri.https('launchlibrary.net', '/1.4/launch', queryParameters);
 
-    return handleGetCall(uri);
-  }); 
+  return handleGetCall(uri);
 }
 
 Future<Launch> handleGetCall(Uri uri) async {

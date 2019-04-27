@@ -3,20 +3,55 @@ import 'package:flutter/material.dart';
 import 'package:hmpaisrn/data/launches.dart';
 import 'package:hmpaisrn/screens/rocket/detail/detail.dart';
 
-class LaunchList extends StatelessWidget {
+class LaunchList extends StatefulWidget {
   final List<Launches> launches;
+  final onScrollEnd;
 
-  const LaunchList({Key key, this.launches}) : super(key: key);
+  @override
+  _LaunchListState createState() => _LaunchListState();
+
+  const LaunchList({Key key, this.launches, this.onScrollEnd}) : super(key: key);
+}
+
+class _LaunchListState extends State<LaunchList> {
+  ScrollController _controller;
+
+  _scrollListener() async {
+    if (_controller.offset >= _controller.position.maxScrollExtent &&
+        !_controller.position.outOfRange) {
+      // reached the bottom
+      widget.onScrollEnd();
+    }
+    if (_controller.offset <= _controller.position.minScrollExtent &&
+        !_controller.position.outOfRange) {
+      // reached the top
+    }
+  }
+
+  @override
+  void initState() {
+    _controller = ScrollController();
+    _controller.addListener(_scrollListener);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.removeListener(_scrollListener);
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext ctxt) {
     return ListView(
+        controller: _controller,
         padding: EdgeInsets.symmetric(vertical: 8.0),
         children: _buildContactList(ctxt));
   }
 
   List<_LaunchesItem> _buildContactList(BuildContext ctxt) {
-    return launches.map((launch) => _LaunchesItem(launch, ctxt)).toList();
+    return widget.launches.map((launch) => _LaunchesItem(launch, ctxt)).toList();
   }
 }
 
