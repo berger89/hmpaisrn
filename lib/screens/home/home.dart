@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hmpaisrn/data/launch.dart';
 import 'package:hmpaisrn/rocket_icons.dart';
 import 'package:hmpaisrn/screens/list/list.dart';
+import 'package:hmpaisrn/screens/rocket/previous/previous.dart';
 import 'package:hmpaisrn/screens/rocket/upcoming/upcoming.dart';
 import 'widgets/background/index.dart';
 import 'package:hmpaisrn/screens/home/widgets/text_number/index.dart';
@@ -81,7 +82,7 @@ class _PeopleNumberPageState extends State<PeopleNumberPage> {
         ],
       ),
       FutureBuilder(
-          future: fetchLaunch(),
+          future: fetchNextLaunches(),
           builder: (context, snapshot) {
             if (snapshot.hasData && snapshot.data is Launch) {
               return new UpcomingListScreen(
@@ -95,21 +96,21 @@ class _PeopleNumberPageState extends State<PeopleNumberPage> {
             }
           }),
       FutureBuilder(
-          future: fetchLaunch(),
+          future: fetchPreviousLaunches(),
           builder: (context, snapshot) {
             if (snapshot.hasData && snapshot.data is Launch) {
-              return new UpcomingListScreen(
+              return new PreviousListScreen(
                 launch: snapshot.data,
               );
             } else {
               // TODO show loading dialog
-              return new UpcomingListScreen(
+              return new PreviousListScreen(
                 launch: new Launch(count: 0,launches: new List(0)),
               );
             }
           }),
       FutureBuilder(
-          future: fetchLaunch(),
+          future: fetchNextLaunches(next: 20, offset: 0),
           builder: (context, snapshot) {
             if (snapshot.hasData && snapshot.data is Launch) {
               return new UpcomingListScreen(
