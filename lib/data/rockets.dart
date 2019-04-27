@@ -1,8 +1,10 @@
+import 'package:hmpaisrn/data/agencies.dart';
+import 'package:hmpaisrn/data/location.dart';
+
 class Rocket {
   String name;
   int id;
   String defaultPads;
-  Map<String, dynamic> family;
   String wikiURL;
   String changed;
   List<String> infoURLs;
@@ -10,32 +12,38 @@ class Rocket {
   String thumbImageURL;
   String detailImageURL;
   List<int> imageSizes;
+  Agencies agencies;
+  String familyname;
 
   Rocket(
       {this.id,
       this.name,
       this.defaultPads,
-      this.family,
       this.wikiURL,
       this.changed,
       this.infoURLs,
       this.originalImageURL,
-      this.imageSizes});
+      this.imageSizes,
+      this.agencies,
+      this.familyname});
 
   Rocket.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     defaultPads = json['defaultPads'];
-    family = json['family'];
     wikiURL = json['wikiURL'];
     changed = json['changed'];
+    familyname = json['familyname'];
     infoURLs = List.castFrom(json['infoURLs']);
     originalImageURL = json['imageURL'];
     imageSizes = List.castFrom(json['imageSizes']);
+    if (json['agencies'] != null && List.castFrom(json['agencies']).isNotEmpty)
+      agencies = Agencies.fromJson(json['agencies'][0]);
 
     // default rocket img if there is none provided
     if (originalImageURL == '' || originalImageURL == 'Array') {
-      originalImageURL = 'https://s3.amazonaws.com/launchlibrary/RocketImages/placeholder_320.png';
+      originalImageURL =
+          'https://s3.amazonaws.com/launchlibrary/RocketImages/placeholder_320.png';
     }
 
     // set default if imageSizes is empty
@@ -64,7 +72,6 @@ class Rocket {
     data['id'] = this.id;
     data['name'] = this.name;
     data['defaultPads'] = this.defaultPads;
-    data['family'] = this.family;
     data['wikiURL'] = this.wikiURL;
     data['changed'] = this.changed;
     data['infoURLs'] = this.infoURLs;

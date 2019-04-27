@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hmpaisrn/data/launches.dart';
+import 'package:hmpaisrn/screens/rocket/detail/detail.dart';
 
 class LaunchList extends StatelessWidget {
   final List<Launches> launches;
@@ -43,9 +44,8 @@ class _LaunchesItem extends ListTile {
 
 void onTapped(Launches launches, BuildContext context) {
   // TODO ROCKET DETAIL PAGE
-  /*Navigator.push(
+  Navigator.push(
       context,
       new MaterialPageRoute(
-          builder: (context) => new DetailPage(people: null)));
-          */
+          builder: (context) => new RocketDetailPage(launches: launches)));
 }
