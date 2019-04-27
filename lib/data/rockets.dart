@@ -5,7 +5,7 @@ class Rocket {
   Map<String, dynamic> family;
   String wikiURL;
   String changed;
-  List<dynamic> infoURLs;
+  List<String> infoURLs;
   String originalImageURL;
   String thumbImageURL;
   String detailImageURL;
@@ -29,7 +29,7 @@ class Rocket {
     family = json['family'];
     wikiURL = json['wikiURL'];
     changed = json['changed'];
-    infoURLs = json['infoURLs'];
+    infoURLs = List.castFrom(json['infoURLs']);
     originalImageURL = json['imageURL'];
     imageSizes = List.castFrom(json['imageSizes']);
 

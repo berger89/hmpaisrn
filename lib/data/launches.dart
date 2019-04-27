@@ -9,7 +9,7 @@ class Launches {
   int status;
   String windowstart;
   String windowend;
-  List<dynamic> vidURLs;
+  List<String> vidURLs;
   String vidURL;
   int probability;
   String changed;
@@ -42,7 +42,7 @@ class Launches {
     windowstart = json['windowstart'];
     windowend = json['windowend'];
     vidURL = json['vidURL'];
-    vidURLs = json['vidURLs'];
+    vidURLs = List.castFrom(json['vidURLs']);
     probability = json['probability'];
     changed = json['changed'];
     lsp = json['lsp'];
