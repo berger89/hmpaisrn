@@ -1,3 +1,5 @@
+import 'package:hmpaisrn/data/location.dart';
+import 'package:hmpaisrn/data/missions.dart';
 import 'package:hmpaisrn/data/rockets.dart';
 
 class Launches {
@@ -15,6 +17,8 @@ class Launches {
   String changed;
   Map<String, dynamic> lsp;
   Rocket rocket;
+  Missions missions;
+  Location location;
 
   Launches(
       {this.id,
@@ -30,7 +34,9 @@ class Launches {
       this.probability,
       this.changed,
       this.lsp,
-      this.rocket});
+      this.rocket,
+      this.missions,
+      this.location});
 
   Launches.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -45,8 +51,10 @@ class Launches {
     vidURLs = List.castFrom(json['vidURLs']);
     probability = json['probability'];
     changed = json['changed'];
-    lsp = Map.castFrom(json['lsp']);
     rocket = Rocket.fromJson(json['rocket']);
+    if (json['missions'] != null && List.castFrom(json['missions']).isNotEmpty)
+      missions = Missions.fromJson(json['missions'][0]);
+    location = Location.fromJson(json['location']);
   }
 
   Map<String, dynamic> toJson() {

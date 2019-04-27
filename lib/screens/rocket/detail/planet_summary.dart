@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:hmpaisrn/data/people.dart';
-import 'package:hmpaisrn/screens/detail/detail.dart';
+import 'package:hmpaisrn/data/launches.dart';
+import 'package:hmpaisrn/screens/rocket/detail/detail.dart';
 import 'package:hmpaisrn/util/text_style.dart';
 
-class PlanetSummary extends StatelessWidget {
-  final People people;
+class RocketSummary extends StatelessWidget {
+  final Launches launches;
   final bool horizontal;
 
-  PlanetSummary(this.people, {this.horizontal = true});
+  RocketSummary(this.launches, {this.horizontal = true});
 
-  PlanetSummary.vertical(this.people) : horizontal = false;
+  RocketSummary.vertical(this.launches) : horizontal = false;
 
   @override
   Widget build(BuildContext context) {
@@ -31,21 +31,31 @@ class PlanetSummary extends StatelessWidget {
             horizontal ? CrossAxisAlignment.start : CrossAxisAlignment.center,
         children: <Widget>[
           new Container(height: 4.0),
-          new Text(people.name, style: Style.titleTextStyle),
+          new Text(launches.name, style: Style.titleTextStyle),
           new Container(height: 10.0),
-          new Text(people.country.toUpperCase(), style: Style.commonTextStyle),
+          new Text(
+              launches.location != null ? launches.location.countrycode : "",
+              style: Style.commonTextStyle),
           new Separator(),
           new Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               new Expanded(
                   flex: horizontal ? 1 : 0,
-                  child: _planetValue(value: people.location, image: "")),
+                  child: _planetValue(
+                      value: launches.location != null
+                          ? launches.location.name
+                          : "",
+                      image: "")),
             ],
           ),
           new Expanded(
               flex: horizontal ? 1 : 0,
-              child: _planetValue(value: people.launchdate, image: ""))
+              child: _planetValue(
+                  value: launches.rocket.agencies != null
+                      ? launches.rocket.agencies.name
+                      : "",
+                  image: ""))
         ],
       ),
     );
@@ -74,7 +84,8 @@ class PlanetSummary extends StatelessWidget {
         onTap: horizontal
             ? () => Navigator.of(context).push(
                   new PageRouteBuilder(
-                    pageBuilder: (_, __, ___) => new DetailPage(people: people),
+                    pageBuilder: (_, __, ___) =>
+                        new RocketDetailPage(launches: launches),
                     transitionsBuilder: (context, animation, secondaryAnimation,
                             child) =>
                         new FadeTransition(opacity: animation, child: child),

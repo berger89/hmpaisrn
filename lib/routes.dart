@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'screens/home/index.dart';
 import 'package:hmpaisrn/services/peopleinspace.dart';
+
+import 'screens/home/index.dart';
 
 class Routes {
   final routes = <String, WidgetBuilder>{

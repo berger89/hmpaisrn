@@ -1,20 +1,20 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:hmpaisrn/data/people.dart';
-import 'package:hmpaisrn/screens/detail/planet_summary.dart';
+import 'package:hmpaisrn/data/launches.dart';
+import 'package:hmpaisrn/screens/rocket/detail/planet_summary.dart';
 import 'package:hmpaisrn/util/text_style.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 
-class DetailPage extends StatelessWidget {
-  final People people;
+class RocketDetailPage extends StatelessWidget {
+  final Launches launches;
 
-  const DetailPage({Key key, this.people}) : super(key: key);
+  const RocketDetailPage({Key key, this.launches}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: AppBar(
-        title: new Text(people.name),
+        title: new Text(launches.name),
       ),
       body: new Container(
         constraints: new BoxConstraints.expand(),
@@ -32,7 +32,10 @@ class DetailPage extends StatelessWidget {
 
   Container _getBackground() {
     return new Container(
-      child: new Image(image: new CachedNetworkImageProvider(people.biophoto), height: 300.0, fit: BoxFit.contain),
+      child: new Image(
+          image: new CachedNetworkImageProvider(launches.rocket.thumbImageURL),
+          height: 300.0,
+          fit: BoxFit.contain),
       constraints: new BoxConstraints.expand(height: 300.0),
     );
   }
@@ -54,12 +57,26 @@ class DetailPage extends StatelessWidget {
 
   Container _getContent() {
     final _overviewTitle = "Overview".toUpperCase();
+    String twitterUrl = "";
+    String youtubeUrl = "";
+    String homeUrl = "";
+    if (launches.rocket.agencies != null)
+      for (var url in launches.rocket.agencies.infoURLs) {
+        if (url.contains("twitter")) {
+          twitterUrl = url;
+        } else if (url.contains("youtube")) {
+          youtubeUrl = url;
+        } else {
+          homeUrl = url;
+        }
+      }
+
     return new Container(
       child: new ListView(
         padding: new EdgeInsets.fromLTRB(0.0, 72.0, 0.0, 32.0),
         children: <Widget>[
-          new PlanetSummary(
-            people,
+          new RocketSummary(
+            launches,
             horizontal: false,
           ),
           new Container(
@@ -69,25 +86,38 @@ class DetailPage extends StatelessWidget {
               children: <Widget>[
                 new Text(_overviewTitle, style: Style.headerTextStyle),
                 new Separator(),
-                new Text(people.bio, style: Style.commonTextStyle),
+                new Text(
+                    launches.missions != null
+                        ? launches.missions.description
+                        : "Mission infos not available",
+                    style: Style.commonTextStyle),
                 new Container(height: 8.0),
                 Visibility(
-                    visible: people.twitter.isNotEmpty,
+                    visible: twitterUrl.isNotEmpty,
                     child: new InkWell(
                         child: Text("Twitter",
                             style: TextStyle(
                                 decoration: TextDecoration.underline,
                                 color: Colors.blue)),
-                        onTap: () => launch(people.twitter))),
+                        onTap: () => launch(twitterUrl))),
                 new Container(height: 6.0),
                 Visibility(
-                    visible: people.biolink.isNotEmpty,
+                    visible: youtubeUrl.isNotEmpty,
                     child: new InkWell(
-                        child: Text("Biolink",
+                        child: Text("Youtube",
                             style: TextStyle(
                                 decoration: TextDecoration.underline,
                                 color: Colors.blue)),
-                        onTap: () => launch(people.biolink)))
+                        onTap: () => launch(youtubeUrl))),
+                new Container(height: 6.0),
+                Visibility(
+                    visible: homeUrl.isNotEmpty,
+                    child: new InkWell(
+                        child: Text("Web",
+                            style: TextStyle(
+                                decoration: TextDecoration.underline,
+                                color: Colors.blue)),
+                        onTap: () => launch(homeUrl)))
               ],
             ),
           ),
