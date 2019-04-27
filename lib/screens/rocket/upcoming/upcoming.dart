@@ -45,7 +45,7 @@ class _LaunchesItem extends ListTile {
         child: ClipOval(
           child: CachedNetworkImage(
             //TODO image url
-            imageUrl: "https://cdn.pixabay.com/photo/2017/01/05/11/08/rocket-1954808_1280.png",
+            imageUrl: launches.rocket.thumbImageURL,
             width: 45.0,
             height: 45.0,
           ),
