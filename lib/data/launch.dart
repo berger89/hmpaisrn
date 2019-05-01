@@ -6,7 +6,7 @@ class Launch {
   int count;
   List<Launches> launches;
 
-  Launch({this.count, this.launches});
+  Launch({this.count = 0, this.launches = const []});
 
   Launch.fromJson(Map<String, dynamic> json) {
     count = json['count'];
