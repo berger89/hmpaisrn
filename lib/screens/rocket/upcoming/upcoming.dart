@@ -16,15 +16,28 @@ class UpcomingListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new StoreConnector<AppState, AppDataState>(
+    return new StoreConnector<AppState, Launch>(
       converter: (Store<AppState> store) {
-        return 
-          store.state.appData
-        ;
+        return store.state.appData.nextLaunch;
       },
-      builder: (BuildContext context, AppDataState appData) {
-        return Scaffold(
-        body: LaunchList(launches: appData.nextLaunch.launches));
+      builder: (BuildContext context, Launch nextLaunch) {
+        if (nextLaunch == null || nextLaunch.loading) {
+          return Container(
+            child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Expanded(
+                    child: SizedBox.expand(),
+                  ),
+                  CircularProgressIndicator(value: null),
+                  Expanded(
+                    child: SizedBox.expand(),
+                  ),
+                ]),
+          );
+        }
+
+        return Scaffold(body: LaunchList(launches: nextLaunch.launches));
       },
     );
   }

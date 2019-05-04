@@ -5,8 +5,9 @@ class Launch {
   int total;
   int count;
   List<Launches> launches;
+  bool loading;
 
-  Launch({this.count = 0, this.launches = const []});
+  Launch({this.count = 0, this.launches = const [], this.loading = true});
 
   Launch.fromJson(Map<String, dynamic> json) {
     count = json['count'];
