@@ -12,6 +12,10 @@ class AppState {
 		);
 	}
 
+  static AppState fromJson(dynamic json) => AppState(appData: json["appData"] as AppDataState);
+
+  dynamic toJson() => {'appData': appData};
+
   static AppDataState _init(dynamic appData) {
     if (appData != null) {
       return appData;
