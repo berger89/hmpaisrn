@@ -17,6 +17,7 @@ class Launch {
         launches.add(new Launches.fromJson(v));
       });
     }
+    loading = false;
   }
 
   Map<String, dynamic> toJson() {

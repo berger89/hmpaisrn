@@ -12,7 +12,7 @@ class AppState {
 		);
 	}
 
-  static AppState fromJson(dynamic json) => AppState(appData: json["appData"] as AppDataState);
+  static AppState fromJson(dynamic json) => AppState(appData: AppDataState.fromJson(json["appData"]));
 
   dynamic toJson() => {'appData': appData};
 
