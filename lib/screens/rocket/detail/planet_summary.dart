@@ -15,42 +15,32 @@ class RocketSummary extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget _planetValue({String value, String image}) {
       return new Container(
-        child: new Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
-          new Container(width: 8.0),
-          new Text(value),
-        ]),
-      );
+          margin: new EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 8.0),
+          child: new Text(value, overflow: TextOverflow.ellipsis));
     }
 
     final planetCardContent = new Container(
-      margin: new EdgeInsets.fromLTRB(
-          horizontal ? 76.0 : 16.0, horizontal ? 76.0 : 42.0, 16.0, 16.0),
+      margin: new EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
       constraints: new BoxConstraints.expand(),
       child: new Column(
         crossAxisAlignment:
             horizontal ? CrossAxisAlignment.start : CrossAxisAlignment.center,
         children: <Widget>[
           new Container(height: 4.0),
-          new Text(launches.name, style: Style.titleTextStyle),
-          new Container(height: 10.0),
-          new Text(
-              launches.location != null ? launches.location.countryCode : "",
-              style: Style.commonTextStyle),
+          new Text(launches.name,
+              style: Style.titleTextStyle, overflow: TextOverflow.ellipsis),
+          new Container(height: 1.0),
+          new Container(
+              margin: new EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 8.0),
+              child: new Text(
+                  launches.location != null
+                      ? launches.location.countryCode
+                      : "",
+                  overflow: TextOverflow.ellipsis,
+                  style: Style.commonTextStyle)),
           new Separator(),
-          new Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              new Expanded(
-                  flex: horizontal ? 1 : 0,
-                  child: _planetValue(
-                      value: launches.location != null
-                          ? launches.location.name
-                          : "",
-                      image: "")),
-            ],
-          ),
+          new Text(launches.location.name, overflow: TextOverflow.ellipsis),
           new Expanded(
-              flex: horizontal ? 1 : 0,
               child: _planetValue(
                   value: launches.rocket.agencies != null
                       ? launches.rocket.agencies.name
@@ -62,10 +52,10 @@ class RocketSummary extends StatelessWidget {
 
     final planetCard = new Container(
       child: planetCardContent,
-      height: horizontal ? 124.0 : 184.0,
+      height: horizontal ? 110.0 : 160.0,
       margin: horizontal
-          ? new EdgeInsets.only(left: 46.0)
-          : new EdgeInsets.only(top: 72.0),
+          ? new EdgeInsets.only(left: 20.0)
+          : new EdgeInsets.only(top: 10.0),
       decoration: new BoxDecoration(
         color: new Color(0xFF303030).withOpacity(0.8),
         shape: BoxShape.rectangle,
