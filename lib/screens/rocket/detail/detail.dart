@@ -87,8 +87,8 @@ class RocketDetailPage extends StatelessWidget {
                 new Text(_overviewTitle, style: Style.headerTextStyle),
                 new Separator(),
                 new Text(
-                    launches.missions != null
-                        ? launches.missions.description
+                    launches.missions != null && launches.missions.isNotEmpty
+                        ? launches.missions.first.description
                         : "Mission infos not available",
                     style: Style.commonTextStyle),
                 new Container(height: 8.0),

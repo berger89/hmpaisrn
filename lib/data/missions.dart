@@ -33,6 +33,8 @@ class Missions {
     data['wikiURL'] = this.wikiURL;
     data['type'] = this.type;
     data['countrycode'] = this.countrycode;
+    data['typeName'] = this.typeName;
+    data['description'] = this.description;
     return data;
   }
 }

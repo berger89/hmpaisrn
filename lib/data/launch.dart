@@ -5,10 +5,15 @@ class Launch {
   int total;
   int count;
   List<Launches> launches;
+  bool loading;
 
-  Launch({this.count, this.launches});
+  Launch({this.count = 0, this.launches = const [], this.loading = false});
 
   Launch.fromJson(Map<String, dynamic> json) {
+    if (json == null) {
+      return;
+    }
+
     count = json['count'];
     if (json['launches'] != null) {
       launches = new List<Launches>();
@@ -16,6 +21,7 @@ class Launch {
         launches.add(new Launches.fromJson(v));
       });
     }
+    loading = false;
   }
 
   Map<String, dynamic> toJson() {

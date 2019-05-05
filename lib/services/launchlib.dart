@@ -10,7 +10,7 @@ final AsyncMemoizer _memoizer = AsyncMemoizer();
 
 final formatter = new DateFormat('yyyy-MM-dd');
 
-fetchNextLaunches({next = 20, offset = 0}) {
+fetchUpcomingLaunches({next = 20, offset = 0}) {
   return _memoizer.runOnce(() async {
     final queryParameters = {
       'next': next.toString(),

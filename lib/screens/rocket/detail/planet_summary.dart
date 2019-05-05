@@ -34,7 +34,7 @@ class RocketSummary extends StatelessWidget {
           new Text(launches.name, style: Style.titleTextStyle),
           new Container(height: 10.0),
           new Text(
-              launches.location != null ? launches.location.countrycode : "",
+              launches.location != null ? launches.location.countryCode : "",
               style: Style.commonTextStyle),
           new Separator(),
           new Row(

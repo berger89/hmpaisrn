@@ -4,7 +4,7 @@ class Agencies {
   String abbrev;
   List<String> infoURLs;
   String infoURL;
-  String countrycode;
+  String countryCode;
   int type;
   String wikiURL;
   String changed;
@@ -17,7 +17,7 @@ class Agencies {
       this.infoURLs,
       this.infoURL,
       this.abbrev,
-      this.countrycode,
+      this.countryCode,
       this.type});
 
   Agencies.fromJson(Map<String, dynamic> json) {
@@ -28,7 +28,7 @@ class Agencies {
     infoURLs = List.castFrom(json['infoURLs']);
     infoURL = json['infoURL'];
     abbrev = json['abbrev'];
-    countrycode = json['countrycode'];
+    countryCode = json['countryCode'];
     type = json['type'];
   }
 
@@ -42,7 +42,7 @@ class Agencies {
     data['infoURL'] = this.infoURL;
     data['abbrev'] = this.abbrev;
     data['type'] = this.type;
-    data['countrycode'] = this.countrycode;
+    data['countryCode'] = this.countryCode;
     return data;
   }
 }
