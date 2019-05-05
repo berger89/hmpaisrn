@@ -1,0 +1,2 @@
+- [] prevent parallel fetch by returning function if state->loading == true
+- [] show loading indicator while state->loading == true
