@@ -17,7 +17,7 @@ class Launches {
   String changed;
   Map<String, dynamic> lsp;
   Rocket rocket;
-  Missions missions;
+  List<Missions> missions;
   Location location;
 
   Launches(
@@ -52,8 +52,14 @@ class Launches {
     probability = json['probability'];
     changed = json['changed'];
     rocket = Rocket.fromJson(json['rocket']);
-    if (json['missions'] != null && List.castFrom(json['missions']).isNotEmpty)
-      missions = Missions.fromJson(json['missions'][0]);
+
+    if (json['missions'] != null) {
+      missions = new List<Missions>();
+      json['missions'].forEach((v) {
+        missions.add(new Missions.fromJson(v));
+      });
+    }
+
     location = Location.fromJson(json['location']);
   }
 
@@ -73,6 +79,8 @@ class Launches {
     data['changed'] = this.changed;
     data['lsp'] = this.lsp;
     data['rocket'] = this.rocket;
+    data['missions'] = this.missions;
+    data['location'] = this.location;
     return data;
   }
 }

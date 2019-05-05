@@ -5,17 +5,17 @@ class Location {
   String name;
   String infoURL;
   String wikiURL;
-  String countrycode;
+  String countryCode;
   Agencies agencies;
 
-  Location({this.id, this.name, this.wikiURL, this.infoURL, this.countrycode});
+  Location({this.id, this.name, this.wikiURL, this.infoURL, this.countryCode});
 
   Location.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     wikiURL = json['wikiURL'];
     infoURL = json['infoURL'];
-    countrycode = json['countryCode'];
+    countryCode = json['countryCode'];
     if (json['agencies'] != null)
       agencies = Agencies.fromJson(json['agencies']);
   }
@@ -26,7 +26,7 @@ class Location {
     data['name'] = this.name;
     data['wikiURL'] = this.wikiURL;
     data['infoURL'] = this.infoURL;
-    data['countrycode'] = this.countrycode;
+    data['countryCode'] = this.countryCode;
     return data;
   }
 }

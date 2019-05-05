@@ -3,19 +3,23 @@ import 'package:hmpaisrn/data/launch.dart';
 import 'package:hmpaisrn/screens/list/launchlist.dart';
 import 'package:hmpaisrn/services/launchlib.dart';
 
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:redux/redux.dart';
+import 'package:hmpaisrn/models/app_state.dart';
+import 'package:hmpaisrn/actions/fetch_actions.dart';
+
 class PreviousListScreen extends StatefulWidget {
   final Launch launch;
 
   @override
   _PreviousListScreenState createState() => _PreviousListScreenState();
 
-  const PreviousListScreen({Key key, this.launch}) : super(key: key);  
+  const PreviousListScreen({Key key, this.launch}) : super(key: key);
 }
 
 class _PreviousListScreenState extends State<PreviousListScreen> {
   DateTime startdate;
   DateTime enddate;
-  Launch launch;
 
   static const INCREMENT_DAYS = Duration(days: 14);
 
@@ -23,33 +27,57 @@ class _PreviousListScreenState extends State<PreviousListScreen> {
   void initState() {
     startdate = DateTime.now().subtract(Duration(days: 90));
     enddate = DateTime.now();
-    launch = new Launch(count: 0,launches: new List(0));
     super.initState();
   }
 
   @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
-  void didUpdateWidget(PreviousListScreen oldWidget) {
-    launch = oldWidget.launch;
-    super.didUpdateWidget(oldWidget);
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: LaunchList(launches: launch.launches, onScrollEnd: () async {
-          startdate = startdate.subtract(INCREMENT_DAYS);
-          //TODO: [mr] loading indicator
-          var fetchedLaunch = await fetchPreviousLaunches(startdate: startdate, enddate: enddate);
+    return StoreConnector<AppState, _PreviousModel>(
+      converter: _PreviousModel.fromStore,
+      builder: (BuildContext context, _PreviousModel model) {
+        if (model.previousLaunch == null ||
+            model.previousLaunch.launches == null) {
+          return Container(
+            child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Expanded(
+                    child: SizedBox.expand(),
+                  ),
+                  CircularProgressIndicator(value: null),
+                  Expanded(
+                    child: SizedBox.expand(),
+                  ),
+                ]),
+          );
+        }
 
-          setState(() {
-            launch = fetchedLaunch;
-          });
+        return LaunchList(
+            launches: model.previousLaunch.launches,
+            onScrollEnd: () async {
+              startdate = startdate.subtract(INCREMENT_DAYS);
 
-        }));
+              model.fetchPrevious(startdate, enddate);
+            });
+      },
+    );
+  }
+}
+
+class _PreviousModel {
+  final Launch previousLaunch;
+  final bool loading;
+  final void Function(DateTime startdate, DateTime enddate) fetchPrevious;
+
+  _PreviousModel({
+    this.previousLaunch,
+    this.loading,
+    this.fetchPrevious
+  });
+
+  static _PreviousModel fromStore(Store<AppState> store) {
+    return _PreviousModel(previousLaunch: store.state.appData.previousLaunch, loading: store.state.appData.loading, fetchPrevious: (DateTime startdate, DateTime enddate) {
+      store.dispatch(fetchPreviousLaunchesAction(startdate, enddate));
+    });
   }
 }

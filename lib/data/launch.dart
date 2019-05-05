@@ -7,9 +7,13 @@ class Launch {
   List<Launches> launches;
   bool loading;
 
-  Launch({this.count = 0, this.launches = const [], this.loading = true});
+  Launch({this.count = 0, this.launches = const [], this.loading = false});
 
   Launch.fromJson(Map<String, dynamic> json) {
+    if (json == null) {
+      return;
+    }
+
     count = json['count'];
     if (json['launches'] != null) {
       launches = new List<Launches>();

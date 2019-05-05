@@ -73,7 +73,7 @@ class _SearchListScreenState extends State<SearchListScreen> {
                       borderRadius: BorderRadius.circular(5)),
                   hintText: 'Search for Rockets',
                 ),
-                autofocus: true,
+                autofocus: false,
                 enabled: true,
                 onSubmitted: (text) async {
                   setState(() {

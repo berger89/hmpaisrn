@@ -18,10 +18,10 @@ class UpcomingListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return new StoreConnector<AppState, Launch>(
       converter: (Store<AppState> store) {
-        return store.state.appData.nextLaunch;
+        return store.state.appData.upcomingLaunch;
       },
-      builder: (BuildContext context, Launch nextLaunch) {
-        if (nextLaunch == null || nextLaunch.loading) {
+      builder: (BuildContext context, Launch upcomingLaunch) {
+        if (upcomingLaunch == null || upcomingLaunch.launches == null || upcomingLaunch.loading) {
           return Container(
             child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -37,7 +37,7 @@ class UpcomingListScreen extends StatelessWidget {
           );
         }
 
-        return Scaffold(body: LaunchList(launches: nextLaunch.launches));
+        return Scaffold(body: LaunchList(launches: upcomingLaunch.launches));
       },
     );
   }
