@@ -1,2 +1,3 @@
 - [] prevent parallel fetch by returning function if state->loading == true
 - [] show loading indicator while state->loading == true
+- [] limit number of persisting list elements for offline mode
