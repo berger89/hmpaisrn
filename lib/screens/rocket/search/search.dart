@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hmpaisrn/data/launch.dart';
+import 'package:hmpaisrn/data/launches.dart';
 import 'package:hmpaisrn/screens/list/launchlist.dart';
-import 'package:hmpaisrn/services/launchlib.dart';
 
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
@@ -80,12 +80,11 @@ class _SearchListScreenState extends State<SearchListScreen> {
                       Expanded(
                           child: SizedBox.expand(
                         child: LaunchList(
-                            launches: model.searchLaunch.launches,
+                            launches: model.searchLaunch?.launches ?? [],
                             onScrollEnd: () async {
                               setState(() {
                                 limit = limit + 20;
                               });
-
                               model.fetchSearch(limit, searchText);
                             }),
                       ))
