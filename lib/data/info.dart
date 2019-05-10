@@ -10,7 +10,11 @@ class Info {
 }
 
 const infos = const <Info>[
-  const Info(title: 'About HMPAISRN!', subtitle: 'Version 1.0.0', url: '', icon: Icons.info),
+  const Info(
+      title: 'About HMPAISRN!',
+      subtitle: 'Version 1.1',
+      url: '',
+      icon: Icons.info),
   const Info(
       title: 'Launch Library API',
       subtitle: 'Using the Launch Library API',
