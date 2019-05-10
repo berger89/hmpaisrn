@@ -1,7 +1,11 @@
+import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:hmpaisrn/data/launches.dart';
 import 'package:hmpaisrn/screens/rocket/detail/detail.dart';
 import 'package:hmpaisrn/util/text_style.dart';
+import 'package:intl/intl.dart';
+import 'package:flutter_share_me/flutter_share_me.dart';
 
 class RocketSummary extends StatelessWidget {
   final Launches launches;
@@ -13,6 +17,20 @@ class RocketSummary extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String agenciesName = launches.rocket.agencies != null
+        ? "from: " + launches.rocket.agencies.name
+        : "";
+    String streamUrl = launches.vidURLs != null && launches.vidURLs.isNotEmpty
+        ? "\nStream: " + launches.vidURLs[0]
+        : "";
+    String googleMapsLink =
+        launches.location.pads != null && launches.location.pads.isNotEmpty
+            ? "\n\nSee on Google Maps: http://www.google.com/maps/place/" +
+                launches.location.pads[0].latitude.toString() +
+                "," +
+                launches.location.pads[0].latitude.toString()
+            : "";
+
     Widget _planetValue({String value, String image}) {
       return new Container(
           margin: new EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 8.0),
@@ -39,20 +57,42 @@ class RocketSummary extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   style: Style.commonTextStyle)),
           new Separator(),
-          new Text(launches.location.name, overflow: TextOverflow.ellipsis),
+          new Container(height: 4.0),
+          getTimer(launches.windowstart),
           new Expanded(
               child: _planetValue(
                   value: launches.rocket.agencies != null
                       ? launches.rocket.agencies.name
                       : "",
-                  image: ""))
+                  image: "")),
+          new GestureDetector(
+            child: SvgPicture.asset(
+              "assets/share_icon.svg",
+              height: 30,
+            ),
+            onTap: () {
+              Share.text(
+                  "Launch",
+                  launches.name +
+                      " " +
+                      agenciesName +
+                      " launches at " +
+                      launches.windowstart +
+                      ". \n\nLocation: " +
+                      launches.location.name +
+                      ". " +
+                      streamUrl +
+                      googleMapsLink,
+                  'text/plain');
+            },
+          )
         ],
       ),
     );
 
     final planetCard = new Container(
       child: planetCardContent,
-      height: horizontal ? 110.0 : 160.0,
+      height: horizontal ? 110.0 : 200.0,
       margin: horizontal
           ? new EdgeInsets.only(left: 20.0)
           : new EdgeInsets.only(top: 10.0),
@@ -93,5 +133,29 @@ class RocketSummary extends StatelessWidget {
             ],
           ),
         ));
+  }
+
+  getTimer(String startDate) {
+    DateFormat df = DateFormat("MMMM dd, yyyy hh:mm:ss UTC");
+    var parsedDate = df.parse(startDate, false);
+    int estimateTs = DateTime(parsedDate.year, parsedDate.month, parsedDate.day,
+            parsedDate.hour, parsedDate.minute, parsedDate.second)
+        .millisecondsSinceEpoch; // set needed date
+
+    return StreamBuilder(
+        stream: Stream.periodic(Duration(seconds: 1), (i) => i),
+        builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
+          DateFormat format = DateFormat("mm:ss");
+          int now = DateTime.now().millisecondsSinceEpoch;
+          Duration remaining = Duration(milliseconds: estimateTs - now);
+          var dateString =
+              "${remaining.inDays}d:${remaining.inHours % 24}h:${remaining.inMinutes % 60}m:${remaining.inSeconds % 60}s";
+          print(dateString);
+          return Container(
+              alignment: Alignment.center,
+              child: parsedDate.isAfter(DateTime.now())
+                  ? new Text(dateString)
+                  : new Text(startDate));
+        });
   }
 }
