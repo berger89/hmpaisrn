@@ -1,8 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hmpaisrn/data/launches.dart';
 import 'package:hmpaisrn/screens/rocket/detail/planet_summary.dart';
 import 'package:hmpaisrn/util/text_style.dart';
+import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class RocketDetailPage extends StatelessWidget {
@@ -23,7 +28,7 @@ class RocketDetailPage extends StatelessWidget {
           children: <Widget>[
             _getBackground(),
             _getGradient(),
-            _getContent(),
+            _getContent(context),
           ],
         ),
       ),
@@ -55,17 +60,40 @@ class RocketDetailPage extends StatelessWidget {
     );
   }
 
-  Container _getContent() {
+  Container _getContent(BuildContext context) {
     final _overviewTitle = "Overview".toUpperCase();
     String twitterUrl = "";
     String youtubeUrl = "";
+    String linkedinUrl = "";
+    String instagramUrl = "";
+    String facebookUrl = "";
     String homeUrl = "";
+
+    final String assetTwitter = 'assets/twitter_icon.svg';
+    final String assetWeb = 'assets/web_icon.svg';
+    final String assetYoutube = 'assets/youtube_icon.svg';
+    final String assetFacebook = 'assets/facebook_icon.svg';
+    final String assetInstagram = 'assets/instagram_icon.svg';
+    final String assetLinkedin = 'assets/linkedin_icon.svg';
+
+    Set<Marker> markers = new Set<Marker>();
+    markers.add(Marker(
+        markerId: MarkerId(launches.location.pads[0].id.toString()),
+        position: new LatLng(launches.location.pads[0].latitude,
+            launches.location.pads[0].longitude)));
+
     if (launches.rocket.agencies != null)
       for (var url in launches.rocket.agencies.infoURLs) {
         if (url.contains("twitter")) {
           twitterUrl = url;
         } else if (url.contains("youtube")) {
           youtubeUrl = url;
+        } else if (url.contains("facebook")) {
+          facebookUrl = url;
+        } else if (url.contains("linkedin")) {
+          linkedinUrl = url;
+        } else if (url.contains("instagram")) {
+          instagramUrl = url;
         } else {
           homeUrl = url;
         }
@@ -91,38 +119,104 @@ class RocketDetailPage extends StatelessWidget {
                         ? launches.missions.first.description
                         : "Mission infos not available",
                     style: Style.commonTextStyle),
-                new Container(height: 8.0),
-                Visibility(
-                    visible: twitterUrl.isNotEmpty,
-                    child: new InkWell(
-                        child: Text("Twitter",
-                            style: TextStyle(
-                                decoration: TextDecoration.underline,
-                                color: Colors.blue)),
-                        onTap: () => launch(twitterUrl))),
-                new Container(height: 6.0),
-                Visibility(
-                    visible: youtubeUrl.isNotEmpty,
-                    child: new InkWell(
-                        child: Text("Youtube",
-                            style: TextStyle(
-                                decoration: TextDecoration.underline,
-                                color: Colors.blue)),
-                        onTap: () => launch(youtubeUrl))),
-                new Container(height: 6.0),
-                Visibility(
-                    visible: homeUrl.isNotEmpty,
-                    child: new InkWell(
-                        child: Text("Web",
-                            style: TextStyle(
-                                decoration: TextDecoration.underline,
-                                color: Colors.blue)),
-                        onTap: () => launch(homeUrl)))
+                new Padding(
+                    padding: EdgeInsets.only(top: 15.0),
+                    child: new Text(launches.location.name)),
+                new Padding(
+                    padding: EdgeInsets.only(top: 5.0),
+                    child: new Center(
+                        child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8.0),
+                            child: Align(
+                                alignment: Alignment.center,
+                                child: new Container(
+                                    height: 200,
+                                    width: MediaQuery.of(context).size.width,
+                                    child: GoogleMap(
+                                      initialCameraPosition: CameraPosition(
+                                          target: LatLng(
+                                              launches
+                                                  .location.pads[0].latitude,
+                                              launches
+                                                  .location.pads[0].longitude),
+                                          zoom: 10.0),
+                                      markers: markers,
+                                      gestureRecognizers: Set()
+                                        ..add(Factory<PanGestureRecognizer>(
+                                            () => PanGestureRecognizer()))
+                                        ..add(Factory<
+                                                VerticalDragGestureRecognizer>(
+                                            () =>
+                                                VerticalDragGestureRecognizer())),
+                                      rotateGesturesEnabled: false,
+                                      scrollGesturesEnabled: true,
+                                      tiltGesturesEnabled: true,
+                                    )))))),
+                new Padding(
+                    padding: EdgeInsets.only(top: 15.0),
+                    child: new Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Visibility(
+                            visible: twitterUrl.isNotEmpty,
+                            child: new Padding(
+                                padding: EdgeInsets.only(right: 30.0),
+                                child: new InkWell(
+                                    child: getSvgIcon(assetTwitter),
+                                    onTap: () => launch(twitterUrl)))),
+                        new Container(height: 6.0),
+                        Visibility(
+                            visible: youtubeUrl.isNotEmpty,
+                            child: new Padding(
+                                padding: EdgeInsets.only(right: 30.0),
+                                child: new InkWell(
+                                    child: getSvgIcon(assetYoutube),
+                                    onTap: () => launch(youtubeUrl)))),
+                        new Container(height: 6.0),
+                        Visibility(
+                            visible: facebookUrl.isNotEmpty,
+                            child: new Padding(
+                                padding: EdgeInsets.only(right: 30.0),
+                                child: new InkWell(
+                                    child: getSvgIcon(assetFacebook),
+                                    onTap: () => launch(facebookUrl)))),
+                        new Container(height: 6.0),
+                        Visibility(
+                            visible: linkedinUrl.isNotEmpty,
+                            child: new Padding(
+                                padding: EdgeInsets.only(right: 30.0),
+                                child: new InkWell(
+                                    child: getSvgIcon(assetLinkedin),
+                                    onTap: () => launch(linkedinUrl)))),
+                        new Container(height: 6.0),
+                        Visibility(
+                            visible: instagramUrl.isNotEmpty,
+                            child: new Padding(
+                                padding: EdgeInsets.only(right: 30.0),
+                                child: new InkWell(
+                                    child: getSvgIcon(assetInstagram),
+                                    onTap: () => launch(instagramUrl)))),
+                        new Container(height: 6.0),
+                        Visibility(
+                            visible: homeUrl.isNotEmpty,
+                            child: new InkWell(
+                                child: getSvgIcon(assetWeb),
+                                onTap: () => launch(homeUrl))),
+                        new Container(height: 6.0)
+                      ],
+                    ))
               ],
             ),
           ),
         ],
       ),
+    );
+  }
+
+  getSvgIcon(String path) {
+    return new SvgPicture.asset(
+      path,
+      height: 30,
     );
   }
 }
