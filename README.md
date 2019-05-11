@@ -13,9 +13,11 @@ https://play.google.com/store/apps/details?id=de.bergerapps.hmpaisrn
 
 ## API
 How Many People Are In Space Right Now? API
+
 http://www.howmanypeopleareinspacerightnow.com/peopleinspace.json
 
 Launch Library Reading API
+
 https://launchlibrary.net/docs/1.4/api.html
 
 ## App Structure
