@@ -77,11 +77,15 @@ class RocketDetailPage extends StatelessWidget {
     final String assetLinkedin = 'assets/linkedin_icon.svg';
 
     Set<Marker> markers = new Set<Marker>();
-    markers.add(Marker(
-        markerId: MarkerId(launches.location.pads[0].id.toString()),
-        position: new LatLng(launches.location.pads[0].latitude,
-            launches.location.pads[0].longitude)));
-
+    double lat = 0.0;
+    double long = 0.0;
+    if (launches.location.pads.isNotEmpty) {
+      lat = launches.location.pads[0].latitude;
+      long = launches.location.pads[0].longitude;
+      markers.add(Marker(
+          markerId: MarkerId(launches.location.pads[0].id.toString()),
+          position: new LatLng(lat, long)));
+    }
     if (launches.rocket.agencies != null)
       for (var url in launches.rocket.agencies.infoURLs) {
         if (url.contains("twitter")) {
@@ -122,36 +126,35 @@ class RocketDetailPage extends StatelessWidget {
                 new Padding(
                     padding: EdgeInsets.only(top: 15.0),
                     child: new Text(launches.location.name)),
-                new Padding(
-                    padding: EdgeInsets.only(top: 5.0),
-                    child: new Center(
-                        child: ClipRRect(
-                            borderRadius: BorderRadius.circular(8.0),
-                            child: Align(
-                                alignment: Alignment.center,
-                                child: new Container(
-                                    height: 200,
-                                    width: MediaQuery.of(context).size.width,
-                                    child: GoogleMap(
-                                      initialCameraPosition: CameraPosition(
-                                          target: LatLng(
-                                              launches
-                                                  .location.pads[0].latitude,
-                                              launches
-                                                  .location.pads[0].longitude),
-                                          zoom: 10.0),
-                                      markers: markers,
-                                      gestureRecognizers: Set()
-                                        ..add(Factory<PanGestureRecognizer>(
-                                            () => PanGestureRecognizer()))
-                                        ..add(Factory<
-                                                VerticalDragGestureRecognizer>(
-                                            () =>
-                                                VerticalDragGestureRecognizer())),
-                                      rotateGesturesEnabled: false,
-                                      scrollGesturesEnabled: true,
-                                      tiltGesturesEnabled: true,
-                                    )))))),
+                new Visibility(
+                    child: new Padding(
+                        padding: EdgeInsets.only(top: 5.0),
+                        child: new Center(
+                            child: ClipRRect(
+                                borderRadius: BorderRadius.circular(8.0),
+                                child: Align(
+                                    alignment: Alignment.center,
+                                    child: new Container(
+                                        height: 200,
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        child: GoogleMap(
+                                          initialCameraPosition: CameraPosition(
+                                              target: LatLng(lat, long),
+                                              zoom: 10.0),
+                                          markers: markers,
+                                          gestureRecognizers: Set()
+                                            ..add(Factory<PanGestureRecognizer>(
+                                                () => PanGestureRecognizer()))
+                                            ..add(Factory<
+                                                    VerticalDragGestureRecognizer>(
+                                                () =>
+                                                    VerticalDragGestureRecognizer())),
+                                          rotateGesturesEnabled: false,
+                                          scrollGesturesEnabled: true,
+                                          tiltGesturesEnabled: true,
+                                        )))))),
+                    visible: launches.location.pads.isNotEmpty),
                 new Padding(
                     padding: EdgeInsets.only(top: 15.0),
                     child: new Row(

@@ -10,7 +10,8 @@ class LaunchList extends StatefulWidget {
   @override
   _LaunchListState createState() => _LaunchListState();
 
-  const LaunchList({Key key, this.launches, this.onScrollEnd}) : super(key: key);
+  const LaunchList({Key key, this.launches, this.onScrollEnd})
+      : super(key: key);
 }
 
 class _LaunchListState extends State<LaunchList> {
@@ -51,7 +52,9 @@ class _LaunchListState extends State<LaunchList> {
   }
 
   List<_LaunchesItem> _buildContactList(BuildContext ctxt) {
-    return widget.launches.map((launch) => _LaunchesItem(launch, ctxt)).toList();
+    return widget.launches
+        .map((launch) => _LaunchesItem(launch, ctxt))
+        .toList();
   }
 }
 

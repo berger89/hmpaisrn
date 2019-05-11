@@ -32,7 +32,10 @@ class DetailPage extends StatelessWidget {
 
   Container _getBackground() {
     return new Container(
-      child: new Image(image: new CachedNetworkImageProvider(people.biophoto), height: 300.0, fit: BoxFit.contain),
+      child: new Image(
+          image: new CachedNetworkImageProvider(people.biophoto),
+          height: 300.0,
+          fit: BoxFit.contain),
       constraints: new BoxConstraints.expand(height: 300.0),
     );
   }
