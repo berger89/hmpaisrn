@@ -7,7 +7,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hmpaisrn/data/launches.dart';
 import 'package:hmpaisrn/screens/rocket/detail/planet_summary.dart';
 import 'package:hmpaisrn/util/text_style.dart';
-import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class RocketDetailPage extends StatelessWidget {
