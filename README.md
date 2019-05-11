@@ -30,6 +30,24 @@ lib/<br/>
 |- data/<br/>
 |- services/<br/>
 
+## Dependencies
+
+This app depends on some libraries:
+* [package_info](https://pub.dev/packages/package_info)
+* [transparent_image](https://pub.dev/packages/transparent_image)
+* [cached_network_image](https://pub.dev/packages/cached_network_image)
+* [intl](https://pub.dev/packages/intl)
+* [redux](https://pub.dev/packages/redux)
+* [flutter_redux](https://pub.dev/packages/flutter_redux)
+* [redux_thunk](https://pub.dev/packages/redux_thunk)
+* [redux_logging](https://pub.dev/packages/redux_logging)
+* [redux_persist](https://pub.dev/packages/redux_persist)
+* [path_provider](https://pub.dev/packages/path_provider)
+* [google_maps_flutter](https://pub.dev/packages/google_maps_flutter)
+* [flutter_svg](https://pub.dev/packages/flutter_svg)
+* [flutter_share_me](https://pub.dev/packages/flutter_share_me)
+* [esys_flutter_share](https://pub.dev/packages/esys_flutter_share)
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
