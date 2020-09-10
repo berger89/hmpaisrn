@@ -13,13 +13,20 @@ import 'package:redux_persist/redux_persist.dart';
 import 'package:path_provider/path_provider.dart';
 
 void main() async {
-  final Directory appDir = await getApplicationDocumentsDirectory();
-  final String path = appDir.path;
+  var appDir;
+
+  try {
+    appDir = await getApplicationDocumentsDirectory();
+  } catch (e) {
+    print(e);
+  }
+
+  final String path = appDir != null ? appDir.path : "";
 
   final persistor = Persistor<AppState>(
     debug: false,
     throttleDuration: Duration(seconds: 2),
-    storage: FileStorage(File("$path/state.json")), // Or use other engines
+    storage: FileStorage(File("state.json")), // Or use other engines
     serializer: JsonSerializer<AppState>(AppState.fromJson), // Or use other serializers
   );
 
@@ -45,7 +52,7 @@ void main() async {
   store.dispatch(fetchPreviousLaunchesAction(null, null));
 
   runApp(new MainApp(store: store, title: 'People in Space',));
-} 
+}
 
 class MainApp extends StatelessWidget {
   final Store store;
