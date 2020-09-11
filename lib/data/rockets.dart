@@ -42,7 +42,7 @@ class Rocket {
     // default rocket img if there is none provided
     if (originalImageURL == '' || originalImageURL == 'Array') {
       originalImageURL =
-          'https://s3.amazonaws.com/launchlibrary/RocketImages/placeholder_320.png';
+          'https://launchlibrary1.nyc3.digitaloceanspaces.com/RocketImages/placeholder_320.png';
     }
 
     // set default if imageSizes is empty
