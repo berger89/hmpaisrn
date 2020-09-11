@@ -29,6 +29,7 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     _selectedIndex = 0;
+    print("42");
     super.initState();
   }
 
