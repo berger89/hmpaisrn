@@ -5,7 +5,6 @@ import 'package:hmpaisrn/data/launches.dart';
 import 'package:hmpaisrn/screens/rocket/detail/detail.dart';
 import 'package:hmpaisrn/util/DateUtil.dart';
 import 'package:hmpaisrn/util/text_style.dart';
-import 'package:intl/intl.dart';
 
 class RocketSummary extends StatelessWidget {
   final Launches launches;
