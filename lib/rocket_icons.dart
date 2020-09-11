@@ -11,7 +11,7 @@
 ///      fonts:
 ///       - asset: fonts/Rocket.ttf
 ///
-/// 
+///
 ///
 import 'package:flutter/widgets.dart';
 

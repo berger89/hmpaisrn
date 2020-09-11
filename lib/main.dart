@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:hmpaisrn/models/app_state.dart';              // new
+import 'package:hmpaisrn/models/app_state.dart'; // new
 import 'package:hmpaisrn/reducers/app_reducer.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:redux/redux.dart';                              // new
+import 'package:redux/redux.dart'; // new
 import 'package:redux_persist/redux_persist.dart';
 import 'package:redux_persist_flutter/redux_persist_flutter.dart';
 import 'package:redux_thunk/redux_thunk.dart';
@@ -27,7 +27,8 @@ void main() async {
     debug: false,
     throttleDuration: Duration(seconds: 2),
     storage: FlutterStorage(), // Or use other engines
-    serializer: JsonSerializer<AppState>(AppState.fromJson), // Or use other serializers
+    serializer:
+        JsonSerializer<AppState>(AppState.fromJson), // Or use other serializers
   );
 
   var initialState = new AppState();
@@ -51,17 +52,21 @@ void main() async {
   store.dispatch(fetchUpcomingLaunchesAction);
   store.dispatch(fetchPreviousLaunchesAction(null, null));
 
-  runApp(new MainApp(store: store, title: 'People in Space',));
+  runApp(new MainApp(
+    store: store,
+    title: 'People in Space',
+  ));
 }
 
 class MainApp extends StatelessWidget {
   final Store store;
   final String title;
 
-  MainApp({ this.store, this.title });
+  MainApp({this.store, this.title});
 
   @override
   Widget build(BuildContext context) {
-    return new StoreProvider<AppState>(store: store, child: new Home(title: title));
+    return new StoreProvider<AppState>(
+        store: store, child: new Home(title: title));
   }
 }

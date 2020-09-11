@@ -4,11 +4,8 @@ class AppBackground extends StatelessWidget {
   final AssetImage assetImage;
   final BoxFit boxFit;
 
-    //passing props in react style
-  AppBackground({
-    this.assetImage,
-    this.boxFit
-  });
+  //passing props in react style
+  AppBackground({this.assetImage, this.boxFit});
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +14,8 @@ class AppBackground extends StatelessWidget {
         image: new DecorationImage(
           image: assetImage,
           fit: boxFit,
-          ),
         ),
-      );
+      ),
+    );
   }
 }

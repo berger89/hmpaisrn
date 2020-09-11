@@ -138,7 +138,7 @@ class RocketSummary extends StatelessWidget {
     return StreamBuilder(
         stream: Stream.periodic(Duration(seconds: 1), (i) => i),
         builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
-          DateTime parsedDate=DateUtil().parseUTCtoLocalTimeZone(startDate);
+          DateTime parsedDate = DateUtil().parseUTCtoLocalTimeZone(startDate);
           Duration remaining = DateUtil().getRemainingTimeToUTCDate(startDate);
           var dateString =
               "${remaining.inDays}d:${remaining.inHours % 24}h:${remaining.inMinutes % 60}m:${remaining.inSeconds % 60}s";

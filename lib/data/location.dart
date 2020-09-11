@@ -9,7 +9,13 @@ class Location {
   Agencies agencies;
   List<Pads> pads;
 
-  Location({this.id, this.name, this.wikiURL, this.infoURL, this.countryCode, this.pads});
+  Location(
+      {this.id,
+      this.name,
+      this.wikiURL,
+      this.infoURL,
+      this.countryCode,
+      this.pads});
 
   Location.fromJson(Map<String, dynamic> json) {
     id = json['id'];

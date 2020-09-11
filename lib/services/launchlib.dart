@@ -18,8 +18,7 @@ fetchUpcomingLaunches({next = 20, offset = 0}) {
       'mode': 'verbose'
     };
 
-    final uri =
-        Uri.https('launchlibrary.net', '/1.4/launch', queryParameters);
+    final uri = Uri.https('launchlibrary.net', '/1.4/launch', queryParameters);
 
     return handleGetCall(uri);
   });
@@ -33,8 +32,7 @@ fetchSearchLaunches({name = '', limit = 200}) {
     'sort': 'desc'
   };
 
-  final uri =
-      Uri.https('launchlibrary.net', '/1.4/launch', queryParameters);
+  final uri = Uri.https('launchlibrary.net', '/1.4/launch', queryParameters);
 
   return handleGetCall(uri);
 }
@@ -56,8 +54,7 @@ fetchPreviousLaunches({startdate, enddate, limit = 500}) {
     'sort': 'desc'
   };
 
-  final uri =
-      Uri.https('launchlibrary.net', '/1.4/launch', queryParameters);
+  final uri = Uri.https('launchlibrary.net', '/1.4/launch', queryParameters);
 
   return handleGetCall(uri);
 }
@@ -66,7 +63,8 @@ Future<Launch> handleGetCall(Uri uri) async {
   final response = await http.get(uri);
 
   if (response.statusCode <= 299) {
-    var launches = Launch.fromJson(json.decode(utf8.decode(response.bodyBytes)));
+    var launches =
+        Launch.fromJson(json.decode(utf8.decode(response.bodyBytes)));
     // If the call to the server was successful, parse the JSON
     return launches;
   } else {
