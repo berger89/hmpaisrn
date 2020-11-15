@@ -3,6 +3,6 @@ import 'package:hmpaisrn/reducers/data_reducer.dart';
 
 AppState appReducer(AppState state, action) {
   return new AppState(
-      appData: appDataReducer(state.appData, action),
+    appData: appDataReducer(state.appData, action),
   );
 }

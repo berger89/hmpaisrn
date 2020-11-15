@@ -17,7 +17,9 @@ class UpcomingListScreen extends StatelessWidget {
         return store.state.appData.upcomingLaunch;
       },
       builder: (BuildContext context, Launch upcomingLaunch) {
-        if (upcomingLaunch == null || upcomingLaunch.launches == null || upcomingLaunch.loading) {
+        if (upcomingLaunch == null ||
+            upcomingLaunch.launches == null ||
+            upcomingLaunch.loading) {
           return Container(
             child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,

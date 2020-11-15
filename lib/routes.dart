@@ -9,7 +9,7 @@ class Routes {
     '/Detail': (BuildContext context) => new Home()
   };
 
-  Routes () {
+  Routes() {
     runApp(Home());
   }
 }

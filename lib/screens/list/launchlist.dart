@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hmpaisrn/data/launches.dart';
 import 'package:hmpaisrn/screens/rocket/detail/detail.dart';
+import 'package:hmpaisrn/util/DateUtil.dart';
 
 class LaunchList extends StatefulWidget {
   final List<Launches> launches;
@@ -63,7 +64,8 @@ class _LaunchesItem extends ListTile {
       : super(
           onTap: () => onTapped(launches, buildContext),
           title: Text(launches.name),
-          subtitle: Text(launches.windowstart),
+          subtitle: Text(DateUtil().formatUTCtoLocalTimeZone(
+              DateUtil().parseUTCtoLocalTimeZone(launches.windowstart))),
           leading: new Container(
             width: 50.0,
             height: 50.0,

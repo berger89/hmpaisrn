@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hmpaisrn/data/launches.dart';
 import 'package:hmpaisrn/screens/rocket/detail/detail.dart';
+import 'package:hmpaisrn/util/DateUtil.dart';
 import 'package:hmpaisrn/util/text_style.dart';
-import 'package:intl/intl.dart';
 
 class RocketSummary extends StatelessWidget {
   final Launches launches;
@@ -135,18 +135,11 @@ class RocketSummary extends StatelessWidget {
   }
 
   getTimer(String startDate) {
-    DateFormat df = DateFormat("MMMM dd, yyyy hh:mm:ss UTC");
-    var parsedDate = df.parse(startDate, false);
-    int estimateTs = DateTime(parsedDate.year, parsedDate.month, parsedDate.day,
-            parsedDate.hour, parsedDate.minute, parsedDate.second)
-        .millisecondsSinceEpoch; // set needed date
-
     return StreamBuilder(
         stream: Stream.periodic(Duration(seconds: 1), (i) => i),
         builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
-          DateFormat format = DateFormat("mm:ss");
-          int now = DateTime.now().millisecondsSinceEpoch;
-          Duration remaining = Duration(milliseconds: estimateTs - now);
+          DateTime parsedDate = DateUtil().parseUTCtoLocalTimeZone(startDate);
+          Duration remaining = DateUtil().getRemainingTimeToUTCDate(startDate);
           var dateString =
               "${remaining.inDays}d:${remaining.inHours % 24}h:${remaining.inMinutes % 60}m:${remaining.inSeconds % 60}s";
           print(dateString);

@@ -67,15 +67,14 @@ class _PreviousModel {
   final bool loading;
   final void Function(DateTime startdate, DateTime enddate) fetchPrevious;
 
-  _PreviousModel({
-    this.previousLaunch,
-    this.loading,
-    this.fetchPrevious
-  });
+  _PreviousModel({this.previousLaunch, this.loading, this.fetchPrevious});
 
   static _PreviousModel fromStore(Store<AppState> store) {
-    return _PreviousModel(previousLaunch: store.state.appData.previousLaunch, loading: store.state.appData.loading, fetchPrevious: (DateTime startdate, DateTime enddate) {
-      store.dispatch(fetchPreviousLaunchesAction(startdate, enddate));
-    });
+    return _PreviousModel(
+        previousLaunch: store.state.appData.previousLaunch,
+        loading: store.state.appData.loading,
+        fetchPrevious: (DateTime startdate, DateTime enddate) {
+          store.dispatch(fetchPreviousLaunchesAction(startdate, enddate));
+        });
   }
 }
