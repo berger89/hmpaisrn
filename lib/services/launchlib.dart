@@ -10,6 +10,8 @@ final AsyncMemoizer _memoizer = AsyncMemoizer();
 
 final formatter = new DateFormat('yyyy-MM-dd');
 
+final uri = Uri.https('ll.thespacedevs.com', '/2.1.0/launch');
+
 fetchUpcomingLaunches({next = 20, offset = 0}) {
   return _memoizer.runOnce(() async {
     final queryParameters = {
@@ -18,7 +20,7 @@ fetchUpcomingLaunches({next = 20, offset = 0}) {
       'mode': 'verbose'
     };
 
-    final uri = Uri.https('launchlibrary.net', '/1.4/launch', queryParameters);
+    uri.replace(queryParameters: queryParameters);
 
     return handleGetCall(uri);
   });
@@ -32,7 +34,7 @@ fetchSearchLaunches({name = '', limit = 200}) {
     'sort': 'desc'
   };
 
-  final uri = Uri.https('launchlibrary.net', '/1.4/launch', queryParameters);
+  uri.replace(queryParameters: queryParameters);
 
   return handleGetCall(uri);
 }
@@ -54,7 +56,7 @@ fetchPreviousLaunches({startdate, enddate, limit = 500}) {
     'sort': 'desc'
   };
 
-  final uri = Uri.https('launchlibrary.net', '/1.4/launch', queryParameters);
+  uri.replace(queryParameters: queryParameters);
 
   return handleGetCall(uri);
 }
