@@ -18,7 +18,7 @@ class UpcomingListScreen extends StatelessWidget {
       },
       builder: (BuildContext context, Launch upcomingLaunch) {
         if (upcomingLaunch == null ||
-            upcomingLaunch.launches == null ||
+            upcomingLaunch.results == null ||
             upcomingLaunch.loading) {
           return Container(
             child: Row(
@@ -35,7 +35,7 @@ class UpcomingListScreen extends StatelessWidget {
           );
         }
 
-        return Scaffold(body: LaunchList(launches: upcomingLaunch.launches));
+        return Scaffold(body: LaunchList(launches: upcomingLaunch.results));
       },
     );
   }

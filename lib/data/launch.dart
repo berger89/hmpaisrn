@@ -1,13 +1,20 @@
 import 'package:hmpaisrn/data/launches.dart';
 
 class Launch {
-  int offset;
-  int total;
   int count;
-  List<Launches> launches;
+  List<Launches> results;
+
+  String next;
+  String previous;
+
   bool loading;
 
-  Launch({this.count = 0, this.launches = const [], this.loading = false});
+  Launch(
+      {this.count = 0,
+      this.results = const [],
+      this.next,
+      this.previous,
+      this.loading = false});
 
   Launch.fromJson(Map<String, dynamic> json) {
     if (json == null) {
@@ -15,10 +22,13 @@ class Launch {
     }
 
     count = json['count'];
-    if (json['launches'] != null) {
-      launches = new List<Launches>();
-      json['launches'].forEach((v) {
-        launches.add(new Launches.fromJson(v));
+    next = json['next'];
+    previous = json['previous'];
+
+    if (json['results'] != null) {
+      results = new List<Launches>();
+      json['results'].forEach((v) {
+        results.add(new Launches.fromJson(v));
       });
     }
     loading = false;
@@ -27,8 +37,11 @@ class Launch {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['count'] = this.count;
-    if (this.launches != null) {
-      data['launches'] = this.launches.map((v) => v.toJson()).toList();
+    data['next'] = this.next;
+    data['previous'] = this.previous;
+
+    if (this.results != null) {
+      data['results'] = this.results.map((v) => v.toJson()).toList();
     }
     return data;
   }

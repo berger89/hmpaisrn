@@ -78,7 +78,7 @@ class _SearchListScreenState extends State<SearchListScreen> {
                       Expanded(
                           child: SizedBox.expand(
                         child: LaunchList(
-                            launches: model.searchLaunch?.launches ?? [],
+                            launches: model.searchLaunch?.results ?? [],
                             onScrollEnd: () async {
                               setState(() {
                                 limit = limit + 20;

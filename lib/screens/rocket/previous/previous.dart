@@ -34,7 +34,7 @@ class _PreviousListScreenState extends State<PreviousListScreen> {
       converter: _PreviousModel.fromStore,
       builder: (BuildContext context, _PreviousModel model) {
         if (model.previousLaunch == null ||
-            model.previousLaunch.launches == null) {
+            model.previousLaunch.results == null) {
           return Container(
             child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -51,7 +51,7 @@ class _PreviousListScreenState extends State<PreviousListScreen> {
         }
 
         return LaunchList(
-            launches: model.previousLaunch.launches,
+            launches: model.previousLaunch.results,
             onScrollEnd: () async {
               startdate = startdate.subtract(INCREMENT_DAYS);
 
