@@ -1,13 +1,13 @@
 import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:hmpaisrn/data/launches.dart';
+import 'package:hmpaisrn/data/models/launch.dart';
 import 'package:hmpaisrn/screens/rocket/detail/detail.dart';
 import 'package:hmpaisrn/util/DateUtil.dart';
 import 'package:hmpaisrn/util/text_style.dart';
 
 class RocketSummary extends StatelessWidget {
-  final Launches launches;
+  final Launch launches;
   final bool horizontal;
 
   RocketSummary(this.launches, {this.horizontal = true});
@@ -16,19 +16,12 @@ class RocketSummary extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String agenciesName = launches.rocket.agencies != null
-        ? "from: " + launches.rocket.agencies.name
+    String agenciesName = launches.rocket.configuration != null
+        ? "from: " + launches.rocket.configuration.name
         : "";
-    String streamUrl = launches.vidURLs != null && launches.vidURLs.isNotEmpty
-        ? "\nStream: " + launches.vidURLs[0]
+    String googleMapsLink = launches.pad != null && launches.pad != null
+        ? "\n\nSee on Google Maps: " + launches.pad.mapURL
         : "";
-    String googleMapsLink =
-        launches.location.pads != null && launches.location.pads.isNotEmpty
-            ? "\n\nSee on Google Maps: http://www.google.com/maps/place/" +
-                launches.location.pads[0].latitude.toString() +
-                "," +
-                launches.location.pads[0].latitude.toString()
-            : "";
 
     Widget _planetValue({String value, String image}) {
       return new Container(
@@ -50,18 +43,18 @@ class RocketSummary extends StatelessWidget {
           new Container(
               margin: new EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 8.0),
               child: new Text(
-                  launches.location != null
-                      ? launches.location.countryCode
+                  launches.pad.location.countryCode != null
+                      ? launches.pad.location.countryCode
                       : "",
                   overflow: TextOverflow.ellipsis,
                   style: Style.commonTextStyle)),
           new Separator(),
           new Container(height: 4.0),
-          getTimer(launches.windowstart),
+          getTimer(launches.windowStart.toUtc().toString()),
           new Expanded(
               child: _planetValue(
-                  value: launches.rocket.agencies != null
-                      ? launches.rocket.agencies.name
+                  value: launches.rocket.configuration != null
+                      ? launches.rocket.configuration.fullName
                       : "",
                   image: "")),
           new GestureDetector(
@@ -76,11 +69,10 @@ class RocketSummary extends StatelessWidget {
                       " " +
                       agenciesName +
                       " launches at " +
-                      launches.windowstart +
+                      launches.windowStart.toIso8601String() +
                       ". \n\nLocation: " +
-                      launches.location.name +
+                      launches.pad.location.name +
                       ". " +
-                      streamUrl +
                       googleMapsLink,
                   'text/plain');
             },
@@ -142,7 +134,6 @@ class RocketSummary extends StatelessWidget {
           Duration remaining = DateUtil().getRemainingTimeToUTCDate(startDate);
           var dateString =
               "${remaining.inDays}d:${remaining.inHours % 24}h:${remaining.inMinutes % 60}m:${remaining.inSeconds % 60}s";
-          print(dateString);
           return Container(
               alignment: Alignment.center,
               child: parsedDate.isAfter(DateTime.now())
