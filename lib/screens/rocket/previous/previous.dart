@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:hmpaisrn/actions/fetch_actions.dart';
-import 'package:hmpaisrn/data/launch.dart';
+import 'package:hmpaisrn/data/models/launch.dart';
+import 'package:hmpaisrn/data/models/launches.dart';
 import 'package:hmpaisrn/models/app_state.dart';
 import 'package:hmpaisrn/screens/list/launchlist.dart';
 import 'package:redux/redux.dart';
@@ -63,7 +64,7 @@ class _PreviousListScreenState extends State<PreviousListScreen> {
 }
 
 class _PreviousModel {
-  final Launch previousLaunch;
+  final Launches previousLaunch;
   final bool loading;
   final void Function(DateTime startdate, DateTime enddate) fetchPrevious;
 

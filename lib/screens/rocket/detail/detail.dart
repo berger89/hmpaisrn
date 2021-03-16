@@ -4,13 +4,13 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:hmpaisrn/data/launches.dart';
+import 'package:hmpaisrn/data/models/launch.dart';
 import 'package:hmpaisrn/screens/rocket/detail/planet_summary.dart';
 import 'package:hmpaisrn/util/text_style.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class RocketDetailPage extends StatelessWidget {
-  final Launches launches;
+  final Launch launches;
 
   const RocketDetailPage({Key key, this.launches}) : super(key: key);
 
@@ -37,7 +37,9 @@ class RocketDetailPage extends StatelessWidget {
   Container _getBackground() {
     return new Container(
       child: new Image(
-          image: new CachedNetworkImageProvider(launches.rocket.thumbImageURL),
+          image: launches.image != null
+              ? new CachedNetworkImageProvider(launches.image)
+              : AssetImage('assets/icon_hmpaisrn.png'),
           height: 300.0,
           fit: BoxFit.contain),
       constraints: new BoxConstraints.expand(height: 300.0),
@@ -78,29 +80,15 @@ class RocketDetailPage extends StatelessWidget {
     Set<Marker> markers = new Set<Marker>();
     double lat = 0.0;
     double long = 0.0;
-    if (launches.location.pads.isNotEmpty) {
-      lat = launches.location.pads[0].latitude;
-      long = launches.location.pads[0].longitude;
+    if (launches.pad.location != null) {
+      lat = launches.pad.latitude;
+      long = launches.pad.longitude;
       markers.add(Marker(
-          markerId: MarkerId(launches.location.pads[0].id.toString()),
+          markerId: MarkerId(launches.pad.id.toString()),
           position: new LatLng(lat, long)));
     }
-    if (launches.rocket.agencies != null)
-      for (var url in launches.rocket.agencies.infoURLs) {
-        if (url.contains("twitter")) {
-          twitterUrl = url;
-        } else if (url.contains("youtube")) {
-          youtubeUrl = url;
-        } else if (url.contains("facebook")) {
-          facebookUrl = url;
-        } else if (url.contains("linkedin")) {
-          linkedinUrl = url;
-        } else if (url.contains("instagram")) {
-          instagramUrl = url;
-        } else {
-          homeUrl = url;
-        }
-      }
+    if (launches.rocket.configuration.infoUrl != null)
+      homeUrl = launches.rocket.configuration.infoUrl;
 
     return new Container(
       child: new ListView(
@@ -118,13 +106,13 @@ class RocketDetailPage extends StatelessWidget {
                 new Text(_overviewTitle, style: Style.headerTextStyle),
                 new Separator(),
                 new Text(
-                    launches.missions != null && launches.missions.isNotEmpty
-                        ? launches.missions.first.description
+                    launches.mission != null
+                        ? launches.mission.description
                         : "Mission infos not available",
                     style: Style.commonTextStyle),
                 new Padding(
                     padding: EdgeInsets.only(top: 15.0),
-                    child: new Text(launches.location.name)),
+                    child: new Text(launches.pad.location.name)),
                 new Visibility(
                     child: new Padding(
                         padding: EdgeInsets.only(top: 5.0),
@@ -153,7 +141,7 @@ class RocketDetailPage extends StatelessWidget {
                                           scrollGesturesEnabled: true,
                                           tiltGesturesEnabled: true,
                                         )))))),
-                    visible: launches.location.pads.isNotEmpty),
+                    visible: launches.pad != null ? true : false),
                 new Padding(
                     padding: EdgeInsets.only(top: 15.0),
                     child: new Row(

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:hmpaisrn/actions/fetch_actions.dart';
-import 'package:hmpaisrn/data/launch.dart';
+import 'package:hmpaisrn/data/models/launches.dart';
 import 'package:hmpaisrn/models/app_state.dart';
 import 'package:hmpaisrn/screens/list/launchlist.dart';
 import 'package:redux/redux.dart';
 
 class SearchListScreen extends StatefulWidget {
-  final Launch launch;
+  final Launches launch;
 
   @override
   _SearchListScreenState createState() => _SearchListScreenState();
@@ -93,7 +93,7 @@ class _SearchListScreenState extends State<SearchListScreen> {
 }
 
 class _SearchModel {
-  final Launch searchLaunch;
+  final Launches searchLaunch;
   final bool loading;
   final void Function(int limit, String searchText) fetchSearch;
 

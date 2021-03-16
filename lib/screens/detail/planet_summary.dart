@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hmpaisrn/data/people.dart';
+import 'package:hmpaisrn/data/people/people.dart';
 import 'package:hmpaisrn/screens/detail/detail.dart';
 import 'package:hmpaisrn/util/text_style.dart';
 

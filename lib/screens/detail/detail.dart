@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:hmpaisrn/data/people.dart';
+import 'package:hmpaisrn/data/people/people.dart';
 import 'package:hmpaisrn/screens/detail/planet_summary.dart';
 import 'package:hmpaisrn/util/text_style.dart';
 import 'package:url_launcher/url_launcher.dart';
