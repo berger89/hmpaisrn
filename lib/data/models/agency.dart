@@ -20,8 +20,6 @@ class Agency {
   final String infoURL;
   final String wikiURL;
 
-//  final List<String> infoURLs;
-
   const Agency(
       {this.description,
       this.administrator,
@@ -46,7 +44,6 @@ class Agency {
 
   factory Agency.fromJson(Map<String, dynamic> json) {
     if (json != null) {
-
       var logoURL = json['logo_url'];
       if (logoURL == null) {
         logoURL = "";
